@@ -1,0 +1,6 @@
+package com.erik.canseco.mypokedex.data.remote.entity
+
+data class Pokemon(
+    val name: String,
+    val url: String
+)

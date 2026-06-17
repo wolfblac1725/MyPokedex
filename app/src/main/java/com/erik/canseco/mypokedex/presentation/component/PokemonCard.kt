@@ -44,6 +44,11 @@ fun  PokemonCard(
     var dominantColor by remember {
         mutableStateOf(PurpleGrey80)
     }
+    val isDarkBackground = remember(dominantColor) {
+        val luminance = (0.299 * dominantColor.red + 0.587 * dominantColor.green + 0.114 * dominantColor.blue)
+        luminance < 0.5
+    }
+    val textColor = if (isDarkBackground) Color.White else Carbon
     LaunchedEffect(pokemon.imageUrl) {
         val imageLoader = ImageLoader(context)
 
@@ -92,7 +97,7 @@ fun  PokemonCard(
                 style = MaterialTheme.typography.titleLarge.copy(
                     fontSize = 23.sp,
                     fontWeight = FontWeight.Bold,
-                    color = Carbon
+                    color = textColor
                 ),
 
                 )

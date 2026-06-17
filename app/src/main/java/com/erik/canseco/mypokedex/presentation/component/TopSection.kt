@@ -21,7 +21,7 @@ fun TopSection(name: String,number: Int, types:List<String>, dynamicColor: Color
     Column(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(16.dp)
+            .padding(start = 16.dp, end = 16.dp, bottom = 16.dp)
     ) {
         Row(
             modifier = Modifier.fillMaxWidth(),

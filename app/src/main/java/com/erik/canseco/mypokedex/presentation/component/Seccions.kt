@@ -10,7 +10,7 @@ import com.erik.canseco.mypokedex.utility.Constant
 fun Sections(selectionTab: String, state: PokemonDetailModel,color: Color, modifier: Modifier = Modifier) {
     when(selectionTab){
         Constant.TabsTitle.BASE_STATS.title -> BaseStats(state = state.stats,color,modifier)
-        Constant.TabsTitle.ABOUT .title -> About(state = state,modifier)
+        Constant.TabsTitle.ABOUT.title -> About(state = state,modifier)
         Constant.TabsTitle.EVOLUTION.title -> Evolution(evolution =state.evolutionChain,color,modifier)
     }
 

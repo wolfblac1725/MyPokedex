@@ -12,16 +12,16 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import com.erik.canseco.mypokedex.ui.theme.Carbon
 import com.erik.canseco.mypokedex.utility.Constant
 
 @Composable
-fun TopSection(name: String,number: Int,types:List<String>) {
+fun TopSection(name: String,number: Int, types:List<String>, dynamicColor: Color) {
     Column(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(16.dp)
+            .padding(start = 16.dp, end = 16.dp, bottom = 16.dp)
     ) {
         Row(
             modifier = Modifier.fillMaxWidth(),
@@ -32,19 +32,19 @@ fun TopSection(name: String,number: Int,types:List<String>) {
             Text(
                 text = name,
                 style = typography.headlineLarge,
-                color = Carbon
+                color = dynamicColor
             )
 
             Text(
                 text = Constant.pokemonFormatNumber(number),
                 style = typography.bodyLarge,
-                color = Carbon
+                color = dynamicColor
             )
 
         }
 
         Spacer(modifier = Modifier.height(16.dp))
 
-        Chips(details = types)
+        Chips(details = types, dynamicColor = dynamicColor)
     }
 }

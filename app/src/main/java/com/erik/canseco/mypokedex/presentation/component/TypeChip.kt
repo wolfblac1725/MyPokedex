@@ -9,17 +9,16 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import com.erik.canseco.mypokedex.ui.theme.Carbon
 
 @Composable
-fun TypeChip(type: String) {
+fun TypeChip(type: String, dynamicColor: Color) {
     Surface(
         shape = RoundedCornerShape(16.dp),
         color = Color.White.copy(alpha = 0.3f),
     ) {
         Text(
             text = type,
-            color = Carbon,
+            color = dynamicColor,
             modifier = Modifier.padding(horizontal = 12.dp, vertical = 4.dp),
             style = typography.bodyMedium
         )

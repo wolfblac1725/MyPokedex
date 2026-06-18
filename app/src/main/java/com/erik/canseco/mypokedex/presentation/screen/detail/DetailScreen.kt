@@ -8,7 +8,7 @@ import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -18,6 +18,10 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -72,7 +76,15 @@ fun DetailScreen(
     onBackClick: () -> Unit,
 
 ) {
+    var dominantColor by remember {
+        mutableStateOf(Color((color?: Purple80) as Int))
+    }
     val context = LocalContext.current
+    val isDarkBackground = remember(dominantColor) {
+        val luminance = (0.299 * dominantColor.red + 0.587 * dominantColor.green + 0.114 * dominantColor.blue)
+        luminance < 0.5
+    }
+    val dynamicColor = if (isDarkBackground) Color.White else Carbon
     Scaffold(
         modifier = modifier.fillMaxSize(),
         topBar = {
@@ -87,14 +99,14 @@ fun DetailScreen(
                 navigationIcon = {
                     IconButton(onClick = onBackClick) {
                         Icon(
-                            imageVector = Icons.Default.ArrowBack,
+                            imageVector = Icons.AutoMirrored.Filled.ArrowBack,
                             contentDescription = "Back",
-                            tint = Carbon
+                            tint = dynamicColor
                         )
                     }
                 },
                 colors = TopAppBarDefaults.topAppBarColors(
-                    containerColor = Color((color?: Purple80) as Int)
+                    containerColor = dominantColor
                 )
             )
         },
@@ -107,16 +119,16 @@ fun DetailScreen(
                Box(
                    modifier = Modifier
                        .fillMaxSize()
-                       .background(Color((color ?: Purple80) as Int))
+                       .background(dominantColor)
                        .padding(padding)
                ){
                    state.pokemonInfo?.let {
-                       TopSection(it.name,it.id,it.types)
-                       InfoCard(state = it ,color= Color((color?: Purple80) as Int) , modifier = Modifier.align(Alignment.BottomCenter))
-                       id?.let { it ->
+                       TopSection(it.name,it.id,it.types,dynamicColor)
+                       InfoCard(state = it ,color = dominantColor , modifier = Modifier.align(Alignment.BottomCenter))
+                       id?.let { id ->
                            AsyncImage(
                                model = ImageRequest.Builder(context)
-                                   .data(Constant.pokemonUrlImage(id = it.toInt()))
+                                   .data(Constant.pokemonUrlImage(id = id.toInt()))
                                    .crossfade(true)
                                    .build(),
                                contentDescription = name,

@@ -12,12 +12,14 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.paging.LoadState
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
 import androidx.paging.compose.itemKey
+import com.erik.canseco.mypokedex.R
 import com.erik.canseco.mypokedex.domain.model.PokemonModel
 import com.erik.canseco.mypokedex.presentation.component.PokemonCard
 import com.erik.canseco.mypokedex.presentation.component.ErrorItem
@@ -49,7 +51,7 @@ fun HomeScreen(
         topBar = {
             TopAppBar(
                 title = {
-                    Text("Pokedex")
+                    Text(stringResource(R.string.app_name))
                 },
                 modifier = Modifier.padding(8.dp)
             )

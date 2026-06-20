@@ -9,10 +9,12 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.erik.canseco.mypokedex.R
 import com.erik.canseco.mypokedex.domain.model.PokemonDetailModel
 
 
@@ -67,7 +69,7 @@ fun About(
         }
         item {
             Text(
-                text = "Habilidades: ",
+                text = stringResource(R.string.skills),
                 fontSize = 20.sp,
                 modifier = modifier.padding(top = 16.dp, bottom = 16.dp)
             )

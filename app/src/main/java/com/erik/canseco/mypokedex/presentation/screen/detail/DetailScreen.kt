@@ -26,11 +26,13 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import coil3.compose.AsyncImage
 import coil3.request.ImageRequest
 import coil3.request.crossfade
+import com.erik.canseco.mypokedex.R
 import com.erik.canseco.mypokedex.presentation.component.ErrorItem
 import com.erik.canseco.mypokedex.presentation.component.InfoCard
 import com.erik.canseco.mypokedex.presentation.component.Loading
@@ -100,7 +102,7 @@ fun DetailScreen(
                     IconButton(onClick = onBackClick) {
                         Icon(
                             imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-                            contentDescription = "Back",
+                            contentDescription = stringResource(R.string.back),
                             tint = dynamicColor
                         )
                     }

@@ -85,7 +85,9 @@ fun HomeScreen(
         content = { padding ->
 
             LazyVerticalGrid (
-                modifier = Modifier.padding(padding).fillMaxSize(),
+                modifier = Modifier
+                    .padding(padding)
+                    .fillMaxSize(),
                 contentPadding = PaddingValues(16.dp),
                 verticalArrangement = Arrangement.spacedBy(8.dp),
                 columns = GridCells.Fixed(2),
@@ -127,7 +129,10 @@ fun HomeScreen(
                     loadState.append is LoadState.Error -> {
                         val e = pokemonList.loadState.append as LoadState.Error
                             ErrorItem(
-                                message = "Error al cargar más: ${e.error.localizedMessage}",
+                                message = stringResource(
+                                    R.string.error_al_cargar_m_s,
+                                    e.error.localizedMessage
+                                ),
                                 onClickRetry = { retry() }
                             )
                     }

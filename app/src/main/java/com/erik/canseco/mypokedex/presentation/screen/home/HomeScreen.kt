@@ -3,21 +3,30 @@ package com.erik.canseco.mypokedex.presentation.screen.home
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.SearchBar
+import androidx.compose.material3.SearchBarDefaults
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.paging.LoadState
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
 import androidx.paging.compose.itemKey
+import com.erik.canseco.mypokedex.R
 import com.erik.canseco.mypokedex.domain.model.PokemonModel
 import com.erik.canseco.mypokedex.presentation.component.PokemonCard
 import com.erik.canseco.mypokedex.presentation.component.ErrorItem
@@ -32,6 +41,8 @@ fun HomeScreenRoot(
 ) {
     HomeScreen(
         pokemonList = homeViewModel.pokemonList.collectAsLazyPagingItems(),
+        searchQuery = homeViewModel.state.searchQuery,
+        onSearchQueryChange = homeViewModel::onSearchQueryChange,
         modifier = modifier,
         onItemClick = onItemClick
     )
@@ -41,15 +52,32 @@ fun HomeScreenRoot(
 @Composable
 fun HomeScreen(
     pokemonList: LazyPagingItems<PokemonModel>,
+    searchQuery: String,
+    onSearchQueryChange: (String) -> Unit,
     modifier: Modifier = Modifier,
     onItemClick: (id: String,name: String,color: Int) -> Unit
 ) {
+    var expanded by rememberSaveable { mutableStateOf(false) }
     Scaffold (
         modifier = modifier,
         topBar = {
             TopAppBar(
                 title = {
-                    Text("Pokedex")
+                    SearchBar(
+                        modifier = Modifier.fillMaxWidth(),
+                        inputField ={
+                            SearchBarDefaults.InputField(
+                                query = searchQuery,
+                                onQueryChange = onSearchQueryChange,
+                                onSearch = {},
+                                expanded = expanded,
+                                onExpandedChange = { expanded = it },
+                                placeholder = { Text(stringResource(R.string.app_name)) }
+                            )
+                        },
+                        expanded = expanded,
+                        onExpandedChange = { expanded = it }
+                    ) {}
                 },
                 modifier = Modifier.padding(8.dp)
             )
